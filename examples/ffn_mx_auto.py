@@ -33,6 +33,7 @@ class ResidualMLP(torch.nn.Module):
         mlp_outputs = self.dense_h(proj_outputs)
 
         # Residual Connection
+        # outputs = torch.add(inputs, mlp_outputs)
         outputs = inputs + mlp_outputs
 
         return outputs
@@ -70,5 +71,5 @@ if __name__ == '__main__':
     mlp.to(args.device)
 
     y = mlp(x)
-
+    print (y)
     print("DONE!")
