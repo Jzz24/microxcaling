@@ -68,11 +68,11 @@ if __name__ == '__main__':
 
     # Simple MX spec for MXFP6 weights+activations
     mx_specs = {
-        'w_elem_format': 'fp6_e3m2',
-        'a_elem_format': 'fp6_e3m2',
+        'w_elem_format': 'int8',
+        'a_elem_format': 'int8',
         'block_size': 32,
         'bfloat': 16,
-        'custom_cuda': False,
+        'custom_cuda': True,
         # For quantization-aware finetuning, do backward pass in FP32
         'quantize_backprop': False,
     }
@@ -92,5 +92,5 @@ if __name__ == '__main__':
     #     assert torch.allclose(param1, param2), f"Parameters do not match for {name1}"
 
     similarity = F.cosine_similarity(output.reshape(batch_size,-1), output_mx.reshape(batch_size,-1), dim=1, eps=1e-8)
-    print ("mx and fp32 sim: ", similarity)
+    print(f"{mx_specs['w_elem_format']} mx and fp32 sim: {similarity}")
     print("DONE!")
